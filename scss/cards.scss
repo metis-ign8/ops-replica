@@ -1,0 +1,77 @@
+@import "variables";
+
+.grid-container {
+  width: min(75rem, 100%);
+  margin: 3rem auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: 2.5rem;
+}
+
+.card {
+  --grad: #00c4ff, #ff3bdb;
+  position: relative;
+  background: linear-gradient(135deg, $card, $card2 80%);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 16px $shadow, 0 2px 10px $shadow-strong;
+  padding: 2.5rem;
+  display: grid;
+  grid-template: "title icon" "content content" "bar bar" / 1fr auto;
+  color: $text;
+  cursor: pointer;
+  transition: box-shadow .18s cubic-bezier(.65,.05,.36,1), transform .14s;
+  border: 0.1rem solid $bg-dark;
+  z-index: 2;
+
+  &:hover {
+    box-shadow: 0 24px 36px $shadow-strong, 0 8px 30px $accent2;
+    transform: translateY(-4px) scale(1.012);
+  }
+  &:active {
+    transform: scale(.99);
+  }
+  &::after {
+    content: "";
+    grid-area: bar;
+    height: 3px;
+    border-radius: 1.5px;
+    margin-top: 1.2rem;
+    background: linear-gradient(90deg, var(--grad));
+  }
+}
+
+.card .title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  grid-area: title;
+  align-self: end;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.card .icon {
+  grid-area: icon;
+  font-size: 3.2rem;
+  filter: drop-shadow(0 1px 3px $shadow);
+  margin-left: .6rem;
+}
+
+.card .content {
+  grid-area: content;
+  margin-top: .6rem;
+}
+
+.card .learn-btn {
+  background: $primary;
+  color: #fff;
+  border: none;
+  border-radius: 1.1rem;
+  font-size: 1.06rem;
+  font-weight: 500;
+  padding: .55em 1.35em;
+  margin-top: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px $shadow;
+  transition: background .18s;
+  &:hover { background: $accent2; }
+}
