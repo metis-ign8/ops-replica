@@ -1,218 +1,316 @@
-// --- Variables ---
-$primary:     #00c4ff;
-$accent:      #ff3bdb;
-$accent-dark: #e000be;
-$bg:          #f8fafc;
-$bg-dark:     #121212;
-$tx:          #444447;
-$tx-dark:     #f0f0f0;
-$shadow-cube: #b3b6be;
+// ---------- GLOBAL OPS SASS VARIABLES ----------
+$font-main: 'Segoe UI', Arial, sans-serif;
 
-$radius-cube: 1.3rem;
-$radius-mob:  1.1rem;
+$color-bg:         #d0dbe1;
+$color-bg-dark:    #161622;
+$color-card:       #f2f6f9;
+$color-card2:      #e0e4e5;
+$color-card-glass: rgba(255,255,255,0.7);
+$color-shadow:     rgba(0,0,0,0.10);
+$color-shadow-strong: rgba(0,0,0,0.23);
 
-// --- Mixin: Frosted Glass Card ---
-@mixin cube-card {
-  padding: 2.5rem;
-  border-radius: $radius-cube;
-  background: linear-gradient(120deg, $bg 92%, #e5e9f1 100%);
-  border: 1.5px solid #e3e6ef;
-  color: $tx;
-  display: grid;
-  grid-template:
-    "title icon"
-    "content content"
-    "bar bar" / 1fr auto;
-  gap: 1.5rem;
-  font-family: system-ui, sans-serif;
-  box-shadow:
-    0 3px 12px 0 rgba(0,0,0,0.11),
-    0 3px 0 0 $shadow-cube,
-    inset -1px 1px 5px #fff6,
-    0 0 0 1.5px #f3f4fa;
-  transition:
-    box-shadow .18s cubic-bezier(.46,1.48,.48,.94),
-    transform .14s cubic-bezier(.46,1.48,.48,.94);
-  cursor: pointer;
-  user-select: none;
-}
+$color-primary:    #00c4ff;
+$color-accent:     #ff3bdb;
+$color-accent2:    #e000be;
+$color-yellow:     #ffee58;
+$color-green:      #14e5ad;
+$color-footer:     #191a20;
 
-@import 'ops-vars';
+$color-text:       #444447;
+$color-text-dark:  #f0f0f0;
+$color-muted:      #8e8ea0;
 
-// LIGHT THEME (default)
+// EN/ES
+$langs: (
+  en: (
+    "Business Operations": "Business Operations",
+    "Contact Center": "Contact Center",
+    "IT Support": "IT Support",
+    "Professionals": "Professionals",
+    "Learn More": "Learn More"
+  ),
+  es: (
+    "Business Operations": "Gestión",
+    "Contact Center": "Centro De Servicios",
+    "IT Support": "Soporte IT",
+    "Professionals": "Profesionales",
+    "Learn More": "Aprender Más"
+  )
+);
+
+// ----------- GLOBAL RESET -----------
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; font-family: $font-main; }
+
+// ----------- BODY / THEMES -----------
 body {
-  @include theme(light);
-  font-family: $ops-font-main;
+  background: $color-bg;
+  color: $color-text;
   min-height: 100vh;
-  transition: background .3s, color .3s;
-}
-
-body.dark {
-  @include theme(dark);
-}
-
-// CARD COMPONENT
-.card {
-  @include cube-card(light);  // swap with "dark" for dark mode, or do it via body class in output CSS
-  .icon > i {
-    background: linear-gradient(90deg, map-get(map-get($ops-colors, light), accent), map-get(map-get($ops-colors, light), accent2));
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-  }
-}
-body.dark .card {
-  @include cube-card(dark);
-  .icon > i {
-    background: linear-gradient(90deg, map-get(map-get($ops-colors, dark), accent), map-get(map-get($ops-colors, dark), accent2));
-  }
-}
-
-// --- Reset ---
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-
-// --- Body Base ---
-body {
-  background: #d0dbe1;
-  min-height: 100vh;
-  color: $tx;
-  font-family: system-ui, Arial, sans-serif;
-  transition: background .3s, color .3s;
+  transition: background .2s, color .2s;
   &.dark {
-    background: $bg-dark;
-    color: $tx-dark;
+    background: $color-bg-dark;
+    color: $color-text-dark;
+    .card {
+      background: linear-gradient(120deg, #2b2c3c 0%, #23233a 100%);
+      color: $color-text-dark;
+      box-shadow: 0 12px 48px $color-shadow-strong;
+    }
+    .main-nav, .fab-stack, .modal-overlay {
+      background: #191a24;
+    }
+    .modal {
+      background: #222130;
+      color: $color-text-dark;
+    }
   }
 }
 
-// --- Grid ---
+// ----------- NAVIGATION -----------
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, $color-primary 0%, $color-accent 100%);
+  padding: 1.1rem 2.4rem 1.1rem 2.4rem;
+  border-radius: 1.2rem;
+  margin-bottom: 2.4rem;
+  .logo {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    color: #fff;
+    margin-right: 2rem;
+    text-shadow: 0 2px 12px $color-accent2;
+    user-select: none;
+  }
+  ul {
+    display: flex;
+    gap: 2.1rem;
+    margin: 0; padding: 0;
+    list-style: none;
+    li {
+      a {
+        font-weight: 600;
+        color: #fff;
+        text-decoration: none;
+        transition: opacity .15s;
+        &:hover { opacity: 0.8; }
+      }
+    }
+  }
+  .toggles {
+    display: flex;
+    gap: 1rem;
+    button {
+      background: $color-accent;
+      color: #fff;
+      font-weight: 700;
+      padding: 0.5rem 1.1rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      &:hover { background: $color-accent2; }
+    }
+  }
+}
+
+// ----------- CARD GRID -----------
 .grid-container {
   width: min(75rem, 100%);
-  margin: 2rem auto 0 auto;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr));
   gap: 2rem;
+  justify-items: center;
 }
 
-// --- Card ---
 .card {
-  @include cube-card;
+  --grad: #00c4ff, #ff3bdb;
+  background: linear-gradient(120deg, $color-card, $color-card2 100%);
+  border-radius: 1.8rem;
+  box-shadow: 0 6px 24px $color-shadow, 0 2px 3px $color-shadow-strong;
+  display: grid;
+  grid-template: 
+    'title icon'
+    'content content'
+    'bar bar' 
+    / 1fr auto;
+  gap: 1.1rem 0.5rem;
+  padding: 2.2rem;
+  font-family: $font-main;
+  color: $color-text;
+  transition: box-shadow .17s, transform .16s;
+  border: 1.5px solid transparent;
+  position: relative;
+  min-height: 230px;
+  &:hover, &:focus-within {
+    box-shadow: 0 18px 46px $color-accent2, 0 2px 5px $color-shadow-strong;
+    border: 1.5px solid $color-primary;
+    transform: translateY(-5px) scale(1.025);
+    .icon i { filter: brightness(1.2); }
+  }
   .title {
-    font-size: 1.5rem;
+    font-size: 1.48rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
     grid-area: title;
     align-self: end;
     text-transform: uppercase;
-    font-weight: 500;
-    word-break: break-all;
+    color: $color-accent2;
   }
   .icon {
     grid-area: icon;
-    font-size: 3rem;
-    place-self: end;
+    font-size: 3.1rem;
     > i {
-      color: transparent;
-      background: linear-gradient(90deg, $primary, $accent);
-      background-clip: text;
+      background: linear-gradient(90deg, var(--grad));
       -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 24px $color-shadow-strong;
+      filter: saturate(1.3) brightness(1.1);
     }
   }
   .content {
     grid-area: content;
-    > *:first-child { margin-top: 0; }
-    > *:last-child  { margin-bottom: 0; }
+    p {
+      margin-top: 0.15rem;
+      margin-bottom: 0.65rem;
+      color: $color-muted;
+      font-size: 1.07rem;
+      font-weight: 500;
+    }
+    .learn-btn {
+      margin-top: 1.1rem;
+      background: $color-primary;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      padding: 0.49rem 1.4rem;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px $color-primary;
+      transition: background .13s, box-shadow .13s;
+      &:hover, &:focus { background: $color-accent; box-shadow: 0 3px 13px $color-accent2; }
+    }
   }
   &::after {
     content: "";
     grid-area: bar;
-    height: 2px;
-    border-radius: 1.5px;
-    background-image: linear-gradient(90deg, $primary 0%, $accent 100%);
-    margin-top: 0.6rem;
-  }
-  &:hover, &:focus-visible {
-    box-shadow:
-      0 8px 32px 0 rgba(0,0,0,0.17),
-      0 5px 0 0 darken($shadow-cube, 13%),
-      inset -1px 2px 12px #fff8,
-      0 0 0 1.5px #d2e1ff;
-    transform: translateY(-3px) scale(1.025);
-    outline: none;
-    z-index: 2;
+    height: 2.5px;
+    background: linear-gradient(90deg, var(--grad));
+    border-radius: 2.5px;
+    margin-top: 0.5rem;
+    margin-inline: -1rem;
   }
 }
 
-// --- Modal Shell (used for all popups) ---
-.modal {
+// ----------- FABS -----------
+.fab-stack {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 90;
+  pointer-events: auto;
+  .fab-btn {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: $color-primary;
+    color: #fff;
+    font-size: 1.55rem;
+    border: none;
+    box-shadow: 0 4px 16px $color-shadow-strong;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background .15s, box-shadow .15s;
+    &:hover, &:focus { background: $color-accent; box-shadow: 0 6px 20px $color-accent2; }
+  }
+}
+
+// ----------- MODAL OVERLAY -----------
+.modal-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  z-index: 1000;
-  background: rgba(30, 32, 60, 0.18); // semi-trans for overlay
+  z-index: 9999;
+  background: rgba(26,23,32,0.32);
   align-items: center;
   justify-content: center;
   &.active { display: flex; }
 }
-.modal-dialog {
-  background: #fff;
-  border-radius: 1.4rem;
-  min-width: 330px;
-  max-width: 90vw;
-  max-height: 85vh;
-  padding: 2.2rem;
-  box-shadow: 0 8px 40px #0028 0px;
+.modal {
+  background: $color-card-glass;
+  border-radius: 2rem;
+  box-shadow: 0 16px 64px $color-shadow-strong;
+  padding: 2.5rem 2rem 2rem 2rem;
+  width: 420px;
+  max-width: 94vw;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  &:focus { outline: 2px solid $primary; }
-}
-.modal-close {
-  position: absolute;
-  top: 1.1rem;
-  right: 1.5rem;
-  background: transparent;
-  border: none;
-  color: #b4b4bc;
-  font-size: 2.3rem;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 11;
-  &:hover { color: $accent; }
-}
-.modal-header {
-  font-size: 1.35rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-}
-
-// --- Toggles ---
-.toggle-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: .55rem;
-  background: #f2f2ff;
-  border-radius: 1.5rem;
-  padding: .18rem 1rem;
-  font-weight: 500;
-  color: #2a2547;
-  cursor: pointer;
-  transition: background .16s;
-  &:hover { background: #e9e4fa; }
-}
-.toggle-switch.active {
-  background: $accent;
-  color: #fff;
-}
-
-// --- Responsive ---
-@media (max-width: 600px) {
-  .grid-container { gap: 1.3rem; }
-  .card {
-    padding: 1.2rem;
-    border-radius: $radius-mob;
-    font-size: 1.02rem;
-    grid-template-columns: 1fr;
+  color: $color-text;
+  font-family: $font-main;
+  .modal-header {
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: $color-accent2;
+    user-select: none;
   }
-  .card .icon { font-size: 2.1rem; }
-  .modal-dialog { padding: 1rem; min-width: 95vw; }
+  .close-btn {
+    position: absolute; top: 1.2rem; right: 1.6rem;
+    background: transparent; border: none;
+    color: $color-muted;
+    font-size: 2.1rem; font-weight: 700;
+    cursor: pointer;
+    transition: color .13s;
+    &:hover { color: $color-accent; }
+  }
+  .modal-footer {
+    margin-top: 1.7rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.1rem;
+  }
+}
+
+// ----------- FOOTER -----------
+footer {
+  text-align: right;
+  padding: 1.1rem 2.2rem 1.1rem 2.2rem;
+  background: $color-footer;
+  color: #fff;
+  font-size: 1.08rem;
+  font-weight: 500;
+  border-radius: 1.1rem 1.1rem 0 0;
+  margin-top: 2.6rem;
+  letter-spacing: 0.03em;
+  box-shadow: 0 -2px 12px $color-shadow;
+}
+
+// ----------- RESPONSIVE -----------
+@media (max-width: 1024px) {
+  .main-nav {
+    padding: 1.1rem 1.1rem;
+  }
+  .grid-container {
+    gap: 1.1rem;
+  }
+}
+@media (max-width: 650px) {
+  .main-nav {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0.3rem;
+    border-radius: 0 0 1rem 1rem;
+  }
+  .grid-container {
+    grid-template-columns: 1fr;
+    padding: 0 0.1rem;
+  }
+  .modal { width: 99vw; max-width: 99vw; padding: 1.2rem 0.2rem; }
 }
