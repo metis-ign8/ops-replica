@@ -1,0 +1,26 @@
+<form id="contact-us-form" autocomplete="off" class="form-block">
+  <label>Name</label>
+  <input name="name" required placeholder="Enter your name">
+  <label>Email</label>
+  <input name="email" type="email" required placeholder="Enter your email">
+  <label>Contact Number</label>
+  <input name="number" type="tel" required placeholder="Enter your contact number">
+  <label>Preferred Date</label>
+  <input name="date" type="date" required>
+  <label>Preferred Time</label>
+  <input name="time" type="time" required>
+  <label>What are you interested about?</label>
+  <select name="interest" required>
+    <option value="">Select an option</option>
+    <option>Business Operations</option>
+    <option>Contact Center</option>
+    <option>IT Support</option>
+    <option>Professionals</option>
+  </select>
+  <label>Comments</label>
+  <textarea name="comments" rows="3" placeholder="Describe your needs..."></textarea>
+  <div class="form-actions">
+    <button type="button" class="cancel-btn">Cancel</button>
+    <button type="submit" class="send-btn">Send</button>
+  </div>
+</form>
