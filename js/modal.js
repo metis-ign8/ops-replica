@@ -12,69 +12,79 @@
  *   - draggable: (bool, default true)
  *   - className: (string, optional) Add extra classes for style
  */
-export function showModal(opts) {
-  // Remove existing modal
-  closeModal();
+import { modalContent } from './modalContent.js'; // { business, contact, it, pro }
 
-  const overlay = document.getElementById('modal-overlay');
-  overlay.innerHTML = `
-    <div class="modal ${opts.className||''}" role="dialog" aria-modal="true" tabindex="0" draggable="${opts.draggable!==false}">
-      <button class="modal-close" aria-label="Close">&times;</button>
-      <div class="modal-header">${opts.title||''}</div>
-      <div class="modal-content">${opts.body||''}</div>
-      ${opts.footer ? `<div class="modal-footer">${opts.footer}</div>` : ''}
-    </div>
-  `;
-  overlay.setAttribute('aria-hidden', 'false');
-  overlay.style.display = "flex";
-
-  // Optional size
-  const modal = overlay.querySelector('.modal');
-  if (opts.width)  modal.style.width  = opts.width;
-  if (opts.height) modal.style.height = opts.height;
-
-  // --- Close logic
-  function closeAll() {
-    overlay.innerHTML = "";
-    overlay.style.display = "none";
-    overlay.setAttribute('aria-hidden', 'true');
-    document.onkeydown = null;
-    if (typeof opts.onClose === 'function') opts.onClose();
-  }
-  overlay.querySelector('.modal-close').onclick = closeAll;
-  overlay.onclick = e => { if (e.target === overlay) closeAll(); };
-  document.onkeydown = e => { if (e.key === 'Escape') closeAll(); };
-
-  // --- Draggable logic
-  if (opts.draggable !== false) {
-    let isDragging = false, offsetX = 0, offsetY = 0;
-    modal.addEventListener('mousedown', function (e) {
-      if (e.target.classList.contains('modal-close')) return;
-      isDragging = true;
-      offsetX = e.clientX - modal.getBoundingClientRect().left;
-      offsetY = e.clientY - modal.getBoundingClientRect().top;
-      modal.style.transition = 'none';
-      modal.style.cursor = 'move';
+export function initModals() {
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      const modalId = card.dataset.modal;
+      openServiceModal(modalId);
     });
-    document.addEventListener('mousemove', function (e) {
-      if (!isDragging) return;
-      modal.style.position = "fixed";
-      modal.style.left = (e.clientX - offsetX) + "px";
-      modal.style.top = (e.clientY - offsetY) + "px";
-      modal.style.margin = 0;
+  });
+
+  // Service Modals
+  document.querySelectorAll('.modal-overlay[data-service]').forEach(modal => {
+    modal.addEventListener('mousedown', dragModal);
+    modal.addEventListener('click', e => {
+      if (e.target === modal) closeModal(modal);
     });
-    document.addEventListener('mouseup', function () {
-      isDragging = false;
-      modal.style.transition = '';
-      modal.style.cursor = '';
+    modal.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal(modal);
     });
-  }
+  });
+
+  // Generic close triggers (X, Cancel)
+  document.querySelectorAll('[data-close]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      closeModal(btn.closest('.modal-overlay'));
+    });
+  });
 }
 
-export function closeModal() {
-  const overlay = document.getElementById('modal-overlay');
-  overlay.innerHTML = "";
-  overlay.style.display = "none";
-  overlay.setAttribute('aria-hidden', 'true');
-  document.onkeydown = null;
+function openServiceModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (!modal) return;
+  modal.innerHTML = modalContent[modal.dataset.service] || '';
+  modal.classList.add('active');
+  trapFocus(modal);
+}
+
+function closeModal(modal) {
+  modal.classList.remove('active');
+  modal.blur();
+}
+
+function dragModal(e) {
+  const modal = e.currentTarget.querySelector('.modal');
+  if (!modal || !e.target.classList.contains('modal-header')) return;
+  let shiftX = e.clientX - modal.getBoundingClientRect().left;
+  let shiftY = e.clientY - modal.getBoundingClientRect().top;
+
+  function moveAt(pageX, pageY) {
+    modal.style.left = pageX - shiftX + 'px';
+    modal.style.top = pageY - shiftY + 'px';
+  }
+  function onMouseMove(e) {
+    moveAt(e.pageX, e.pageY);
+  }
+  document.addEventListener('mousemove', onMouseMove);
+  document.onmouseup = function() {
+    document.removeEventListener('mousemove', onMouseMove);
+    document.onmouseup = null;
+  };
+}
+
+// Basic a11y focus trap for modals
+function trapFocus(modal) {
+  const focusableEls = modal.querySelectorAll('button, [href], input, textarea, [tabindex]:not([tabindex="-1"])');
+  if (!focusableEls.length) return;
+  const first = focusableEls[0], last = focusableEls[focusableEls.length-1];
+  modal.addEventListener('keydown', function(e) {
+    if (e.key !== 'Tab') return;
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  });
 }
