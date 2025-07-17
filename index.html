@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OPS Online Support</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/fab.css">
+</head>
+<body>
+  <!-- NAVIGATION BAR -->
+  <nav class="main-nav">
+    <div class="logo"><span class="neon-ops">OPS</span> <span class="subtext">Online Support</span></div>
+    <ul class="nav-links">
+      <li><a href="#" data-service="business">Business Operations</a></li>
+      <li><a href="#" data-service="contact">Contact Center</a></li>
+      <li><a href="#" data-service="it">IT Support</a></li>
+      <li><a href="#" data-service="pros">Professionals</a></li>
+    </ul>
+    <div class="toggles">
+      <button class="lang-toggle" id="lang-toggle">EN</button>
+      <button class="theme-toggle" id="theme-toggle">Dark</button>
+    </div>
+  </nav>
+
+  <!-- CARDS GRID -->
+  <main>
+    <div class="grid-container">
+      <div class="card" data-service="business">
+        <div class="title">Business Operations</div>
+        <div class="icon"><i class="fa-thin fa-briefcase"></i></div>
+        <div class="content">
+          <p>Drive efficiency, compliance, and operational growth with our streamlined business ops.</p>
+        </div>
+      </div>
+      <div class="card" data-service="contact">
+        <div class="title">Contact Center</div>
+        <div class="icon"><i class="fa-thin fa-headset"></i></div>
+        <div class="content">
+          <p>Enhance customer experience and engagement across all touchpoints, 24/7.</p>
+        </div>
+      </div>
+      <div class="card" data-service="it">
+        <div class="title">IT Support</div>
+        <div class="icon"><i class="fa-thin fa-laptop-code"></i></div>
+        <div class="content">
+          <p>Secure, reliable IT support and cybersecurity for critical business systems.</p>
+        </div>
+      </div>
+      <div class="card" data-service="pros">
+        <div class="title">Professionals</div>
+        <div class="icon"><i class="fa-thin fa-users"></i></div>
+        <div class="content">
+          <p>Access top vetted talent: IT, project management, finance, HR, and more.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FABs -->
+  <div id="fabs">
+    <button class="fab" id="fab-join" title="Join Us"><i class="fa-solid fa-user-plus"></i></button>
+    <button class="fab" id="fab-contact" title="Contact Us"><i class="fa-solid fa-envelope"></i></button>
+    <button class="fab" id="fab-chat" title="Chatbot"><i class="fa-solid fa-robot"></i></button>
+  </div>
+
+  <!-- MOBILE FAB NAV (visible only on mobile/tablet) -->
+  <div id="fab-nav-mobile">
+    <button class="fab-menu-toggle" id="fab-menu-toggle"><i class="fa-solid fa-bars"></i></button>
+    <div class="fab-nav-expanded" id="fab-nav-expanded">
+      <div class="fab-nav-toggles">
+        <button class="lang-toggle" id="lang-toggle-mobile">EN</button>
+        <button class="theme-toggle" id="theme-toggle-mobile">Dark</button>
+      </div>
+      <button class="fab-nav-btn" data-nav="home"><i class="fa-solid fa-home"></i> <span>Home</span></button>
+      <button class="fab-nav-btn" data-nav="services"><i class="fa-solid fa-layer-group"></i> <span>Services</span></button>
+      <button class="fab-nav-btn" data-nav="business"><i class="fa-thin fa-briefcase"></i> Business</button>
+      <button class="fab-nav-btn" data-nav="contact-center"><i class="fa-thin fa-headset"></i> Contact Center</button>
+      <button class="fab-nav-btn" data-nav="it-support"><i class="fa-thin fa-laptop-code"></i> IT Support</button>
+      <button class="fab-nav-btn" data-nav="professionals"><i class="fa-thin fa-users"></i> Professionals</button>
+      <button class="fab-nav-btn" data-nav="chatbot"><i class="fa-solid fa-robot"></i> Chatbot</button>
+      <button class="fab-nav-btn" data-nav="contact"><i class="fa-solid fa-envelope"></i> Contact Us</button>
+      <button class="fab-nav-btn" data-nav="join"><i class="fa-solid fa-user-plus"></i> Join Us</button>
+    </div>
+  </div>
+
+  <!-- MODALS: Service Preview, Join, Contact, Chatbot -->
+  <div id="modal-service" class="modal" tabindex="-1">
+    <div class="modal-dialog draggable">
+      <button class="modal-close" data-close>&times;</button>
+      <div class="modal-header"></div>
+      <div class="modal-content"></div>
+    </div>
+  </div>
+  <div id="modal-join" class="modal" tabindex="-1">
+    <div class="modal-dialog draggable">
+      <button class="modal-close" data-close>&times;</button>
+      <div class="modal-header">Join Us</div>
+      <div class="modal-content">[Join Us Form Here]</div>
+    </div>
+  </div>
+  <div id="modal-contact" class="modal" tabindex="-1">
+    <div class="modal-dialog draggable">
+      <button class="modal-close" data-close>&times;</button>
+      <div class="modal-header">Contact Us</div>
+      <div class="modal-content">[Contact Us Form Here]</div>
+    </div>
+  </div>
+  <div id="modal-chatbot" class="modal" tabindex="-1">
+    <div class="modal-dialog draggable chatbot-modal">
+      <button class="modal-close" data-close>&times;</button>
+      <div class="modal-header">
+        <span>OPS • Chattia</span>
+        <span class="chatbot-toggles">
+          <button class="lang-toggle" id="chatbot-lang-toggle">EN</button>
+          <button class="theme-toggle" id="chatbot-theme-toggle">Dark</button>
+        </span>
+      </div>
+      <div class="modal-content">[Chatbot UI Here]</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 OPS Online Support
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="js/connector.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/fabmain.js"></script>
+  <script src="js/central.js"></script>
+</body>
+</html>
