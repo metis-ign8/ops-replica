@@ -101,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Expose showModal for connector.js/others if needed
   window.showModal = showModal;
 });
-
 // Cancel buttons for forms (join/contact)
 document.querySelectorAll('.cancel-btn').forEach(btn => {
   btn.onclick = () => btn.closest('.modal').classList.remove('active');
