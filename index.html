@@ -1,107 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>OPS Online Support</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Main Theme CSS (compiled from SASS) -->
-  <link rel="stylesheet" href="css/global.css">
-  <!-- Card, FAB, Chatbot CSS (modular, override as needed) -->
-  <link rel="stylesheet" href="css/cards.css">
-  <link rel="stylesheet" href="css/fab.css">
-  <link rel="stylesheet" href="css/bot.css">
-  <!-- Font Awesome -->
+  <!-- Font Awesome Pro CDN (swap for local if needed) -->
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
-
-  <!-- Favicon (Animated SVG preferred) -->
-  <link rel="icon" type="image/svg+xml" href="assets/ops-favicon.svg">
+  <link rel="stylesheet" href="css/global.css">
 </head>
 <body>
-  <!-- === HEADER / NAV === -->
-  <nav class="ops-nav">
-    <div class="nav-logo">
-      <img src="assets/ops-logo-neon.svg" alt="OPS" class="logo-neon" />
-    </div>
-    <ul class="nav-menu">
+  <!-- MAIN NAVIGATION -->
+  <nav class="main-nav">
+    <div class="logo" style="font-weight:bold;font-size:1.4rem;">OPS</div>
+    <ul>
       <li><a href="services/business.html" data-en="Business Operations" data-es="Gestión">Business Operations</a></li>
-      <li><a href="services/contact-center.html" data-en="Contact Center" data-es="Centro de Servicios">Contact Center</a></li>
+      <li><a href="services/contact-center.html" data-en="Contact Center" data-es="Centro De Servicios">Contact Center</a></li>
       <li><a href="services/it-support.html" data-en="IT Support" data-es="Soporte IT">IT Support</a></li>
       <li><a href="services/professionals.html" data-en="Professionals" data-es="Profesionales">Professionals</a></li>
     </ul>
-    <div class="nav-toggles">
-      <button id="lang-toggle" class="toggle-btn">EN</button>
-      <button id="theme-toggle" class="toggle-btn">Dark</button>
+    <div class="toggles">
+      <button id="lang-toggle" data-state="en">EN</button>
+      <button id="theme-toggle">Dark</button>
     </div>
   </nav>
 
-  <!-- === CARD GRID === -->
+  <!-- GRID OF SERVICE CARDS -->
   <main>
     <div class="grid-container">
-      <!-- CARD: Business Operations -->
       <div class="card service-card" data-service="business">
         <div class="title" data-en="Business Operations" data-es="Gestión">Business Operations</div>
         <div class="icon"><i class="fa-thin fa-briefcase"></i></div>
         <div class="content">
-          <p data-en="Preview of Business Operations services." data-es="Vista previa de los servicios de Gestión.">
-            Preview of Business Operations services.
-          </p>
+          <p data-en="Streamline your business process..." data-es="Optimiza tus procesos de negocio...">Streamline your business process...</p>
           <button class="learn-btn" data-en="Learn More" data-es="Aprender Más">Learn More</button>
         </div>
       </div>
-      <!-- CARD: Contact Center -->
       <div class="card service-card" data-service="contactc">
-        <div class="title" data-en="Contact Center" data-es="Centro de Servicios">Contact Center</div>
+        <div class="title" data-en="Contact Center" data-es="Centro De Servicios">Contact Center</div>
         <div class="icon"><i class="fa-thin fa-headset"></i></div>
         <div class="content">
-          <p data-en="Preview of Contact Center services." data-es="Vista previa del Centro de Servicios.">
-            Preview of Contact Center services.
-          </p>
+          <p data-en="Omnichannel customer support..." data-es="Soporte omnicanal al cliente...">Omnichannel customer support...</p>
           <button class="learn-btn" data-en="Learn More" data-es="Aprender Más">Learn More</button>
         </div>
       </div>
-      <!-- CARD: IT Support -->
       <div class="card service-card" data-service="itsupport">
         <div class="title" data-en="IT Support" data-es="Soporte IT">IT Support</div>
-        <div class="icon"><i class="fa-thin fa-desktop"></i></div>
+        <div class="icon"><i class="fa-thin fa-wrench-simple"></i></div>
         <div class="content">
-          <p data-en="Preview of IT Support services." data-es="Vista previa de Soporte IT.">
-            Preview of IT Support services.
-          </p>
+          <p data-en="Expert IT assistance, 24/7..." data-es="Asistencia IT experta, 24/7...">Expert IT assistance, 24/7...</p>
           <button class="learn-btn" data-en="Learn More" data-es="Aprender Más">Learn More</button>
         </div>
       </div>
-      <!-- CARD: Professionals -->
       <div class="card service-card" data-service="professionals">
         <div class="title" data-en="Professionals" data-es="Profesionales">Professionals</div>
-        <div class="icon"><i class="fa-thin fa-user-tie"></i></div>
+        <div class="icon"><i class="fa-thin fa-users"></i></div>
         <div class="content">
-          <p data-en="Preview of Professionals services." data-es="Vista previa de Profesionales.">
-            Preview of Professionals services.
-          </p>
+          <p data-en="Access top-vetted talent..." data-es="Accede a talento de élite...">Access top-vetted talent...</p>
           <button class="learn-btn" data-en="Learn More" data-es="Aprender Más">Learn More</button>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- === MODALS (PREVIEW, JOIN, CONTACT, CHATBOT) === -->
+  <!-- FABs -->
+  <div class="fab-stack">
+    <button class="fab-btn" id="fab-join" title="Join Us"><i class="fas fa-user-plus"></i></button>
+    <button class="fab-btn" id="fab-contact" title="Contact Us"><i class="fas fa-envelope"></i></button>
+    <button class="fab-btn" id="fab-chat" title="Chatbot"><i class="fas fa-robot"></i></button>
+  </div>
+
+  <!-- MODAL OVERLAY (Injected) -->
   <div id="modal-overlay" class="modal-overlay" tabindex="-1" aria-hidden="true"></div>
-  <!-- Modals will be injected here by JS -->
 
-  <!-- === MOBILE FABs & NAV (ADAPTABLE SCREENS ONLY) === -->
-  <div id="fab-root"></div>
-  <!-- FABs and mobile nav/accordion are rendered here by fabmain.js -->
-
-  <!-- === FOOTER === -->
-  <footer class="ops-footer">
+  <!-- FOOTER -->
+  <footer>
     © 2025 OPS Online Support
   </footer>
 
-  <!-- === JS: ORDER MATTERS === -->
-  <script src="js/connector.js"></script>
-  <script src="js/fabmain.js"></script>
-  <script src="js/central.js"></script>
-  <script src="js/main.js"></script>
+  <!-- JS -->
+  <script type="module" src="js/main.js"></script>
+  <!-- modal.js must be loaded as module before main.js -->
+  <script type="module" src="js/modal.js"></script>
 </body>
 </html>
