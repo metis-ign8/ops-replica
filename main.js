@@ -11,3 +11,8 @@
     </div>
   </div>
 </div>
+// Cancel buttons for forms (join/contact)
+document.querySelectorAll('.cancel-btn').forEach(btn => {
+  btn.onclick = () => btn.closest('.modal').classList.remove('active');
+});
+
