@@ -1,14 +1,70 @@
-<form id="join-us-form" autocomplete="off" class="form-block">
-  <label>Name</label>
-  <input name="name" required placeholder="Enter your name">
-  <label>Email</label>
-  <input name="email" type="email" required placeholder="Enter your email">
-  <label>Phone</label>
-  <input name="phone" type="tel" required placeholder="Enter your phone">
-  <label>Tell us about yourself</label>
-  <textarea name="about" rows="3" placeholder="Your background, experience..."></textarea>
-  <div class="form-actions">
-    <button type="button" class="cancel-btn">Cancel</button>
-    <button type="submit" class="send-btn">Send</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Join Us • OPS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/ops-favicon.ico">
+  <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+  <!-- Main Navigation -->
+  <nav class="main-nav">
+    <div class="logo">OPS</div>
+    <ul>
+      <li><a href="business-operations.html" data-i18n="Business Operations">Business Operations</a></li>
+      <li><a href="contact-center.html" data-i18n="Contact Center">Contact Center</a></li>
+      <li><a href="it-support.html" data-i18n="IT Support">IT Support</a></li>
+      <li><a href="professionals.html" data-i18n="Professionals">Professionals</a></li>
+    </ul>
+    <div class="toggles">
+      <button id="lang-toggle">EN</button>
+      <button id="theme-toggle">Dark</button>
+    </div>
+  </nav>
+
+  <!-- Join Us Modal (Always visible as primary on this page) -->
+  <div class="modal-overlay active" id="modal-join" tabindex="-1" aria-modal="true" aria-labelledby="join-header">
+    <div class="modal" role="dialog">
+      <button class="close-btn" data-close aria-label="Close">&times;</button>
+      <div class="modal-header" id="join-header" data-i18n="Join Us">Join Us</div>
+      <form id="join-form" autocomplete="off">
+        <div class="form-row">
+          <label for="join-name" data-i18n="Name">Name</label>
+          <input type="text" id="join-name" name="name" required data-en="Enter your name" data-es="Ingresa tu nombre" placeholder="Enter your name">
+        </div>
+        <div class="form-row">
+          <label for="join-email" data-i18n="Email">Email</label>
+          <input type="email" id="join-email" name="email" required data-en="Enter your email" data-es="Ingresa tu correo" placeholder="Enter your email">
+        </div>
+        <div class="form-row">
+          <label for="join-phone" data-i18n="Phone">Phone</label>
+          <input type="tel" id="join-phone" name="phone" required data-en="Enter your phone" data-es="Ingresa tu teléfono" placeholder="Enter your phone">
+        </div>
+        <div class="form-row">
+          <label for="join-about" data-i18n="Tell us about yourself">Tell us about yourself</label>
+          <textarea id="join-about" name="about" rows="4" data-en="Tell us about yourself..." data-es="Cuéntanos sobre ti..." placeholder="Tell us about yourself..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel-btn" data-close data-i18n="Cancel">Cancel</button>
+          <button type="submit" class="modal-submit-btn" data-i18n="Submit">Submit</button>
+        </div>
+      </form>
+    </div>
   </div>
-</form>
+
+  <!-- FABs (imported globally) -->
+  <div class="fab-stack">
+    <button class="fab-btn" data-modal="modal-join" title="Join Us"><i class="fa-solid fa-user-plus"></i></button>
+    <button class="fab-btn" data-modal="modal-contact" title="Contact"><i class="fa-solid fa-envelope"></i></button>
+    <button class="fab-btn" data-modal="modal-chatbot" title="Chatbot"><i class="fa-solid fa-robot"></i></button>
+  </div>
+
+  <!-- Footer -->
+  <footer>© 2025 OPS Online Support</footer>
+
+  <!-- Main JS (module) -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
+
