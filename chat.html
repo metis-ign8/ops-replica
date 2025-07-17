@@ -1,12 +1,65 @@
-<div class="chatbot-ui">
-  <div class="chatbot-log" id="chatbot-log"></div>
-  <form class="chatbot-form" id="chatbot-form" autocomplete="off">
-    <input type="text" id="chatbot-input" maxlength="256" placeholder="Type your message..." required>
-    <button type="submit" id="chatbot-send" disabled>
-      <i class="fa-solid fa-paper-plane"></i>
-    </button>
-    <label class="human-check">
-      <input type="checkbox" id="human-check"> I am human
-    </label>
-  </form>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OPS • Chattia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/ops-favicon.ico">
+  <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+  <!-- Main Navigation -->
+  <nav class="main-nav">
+    <div class="logo">OPS</div>
+    <ul>
+      <li><a href="business-operations.html" data-i18n="Business Operations">Business Operations</a></li>
+      <li><a href="contact-center.html" data-i18n="Contact Center">Contact Center</a></li>
+      <li><a href="it-support.html" data-i18n="IT Support">IT Support</a></li>
+      <li><a href="professionals.html" data-i18n="Professionals">Professionals</a></li>
+    </ul>
+    <div class="toggles">
+      <button id="lang-toggle">EN</button>
+      <button id="theme-toggle">Dark</button>
+    </div>
+  </nav>
+
+  <!-- Chatbot Modal (Always visible as primary on this page) -->
+  <div class="modal-overlay active" id="modal-chatbot" tabindex="-1" aria-modal="true" aria-labelledby="chatbot-header">
+    <div class="modal chatbot-modal" role="dialog">
+      <button class="close-btn" data-close aria-label="Close">&times;</button>
+      <div class="modal-header" id="chatbot-header" data-i18n="OPS • Chattia">OPS • Chattia
+        <span style="float:right; display:flex; gap:1em; align-items:center;">
+          <button id="chatbot-lang-toggle" class="modal-cancel-btn" style="margin-right:.6em;">EN</button>
+          <button id="chatbot-theme-toggle" class="modal-cancel-btn">Dark</button>
+        </span>
+      </div>
+      <div class="chatbot-content">
+        <div class="chat-log" id="chat-log" aria-live="polite"></div>
+        <form id="chatbot-input-row" autocomplete="off">
+          <input id="chatbot-input" type="text" placeholder="Type your message..." required maxlength="256"
+                 data-en="Type your message..." data-es="Escriba su mensaje...">
+          <button id="chatbot-send" type="submit" disabled aria-label="Send"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+        <label class="human-check">
+          <input type="checkbox" id="human-check">
+          <span data-i18n="I am human">I am human</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- FABs (imported globally) -->
+  <div class="fab-stack">
+    <button class="fab-btn" data-modal="modal-join" title="Join Us"><i class="fa-solid fa-user-plus"></i></button>
+    <button class="fab-btn" data-modal="modal-contact" title="Contact"><i class="fa-solid fa-envelope"></i></button>
+    <button class="fab-btn" data-modal="modal-chatbot" title="Chatbot"><i class="fa-solid fa-robot"></i></button>
+  </div>
+
+  <!-- Footer -->
+  <footer>© 2025 OPS Online Support</footer>
+
+  <!-- Main JS (module) -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
+
