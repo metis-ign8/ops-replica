@@ -1,0 +1,78 @@
+// -------- COLORS: OPS PALETTE --------
+$ops-colors: (
+  light: (
+    bg:          #f8fafc,
+    bg-card:     #fff,
+    text:        #444447,
+    accent:      #00c4ff,
+    accent2:     #ff3bdb,
+    accent-dark: #e000be,
+    border:      #e3e6ef,
+    cube:        #b3b6be,
+    glass:       #f3f4fa,
+  ),
+  dark: (
+    bg:          #121212,
+    bg-card:     #231e2b,
+    text:        #f0f0f0,
+    accent:      #00c4ff,
+    accent2:     #ff3bdb,
+    accent-dark: #ffef2f,
+    border:      #2a2547,
+    cube:        #322f47,
+    glass:       #28263d,
+  ),
+);
+
+// -------- LANG: UI TEXT MAP (EN/ES) --------
+$ops-lang: (
+  home:         (en: "Home", es: "Inicio"),
+  services:     (en: "Services", es: "Servicios"),
+  business:     (en: "Business Operations", es: "Gestión"),
+  contactc:     (en: "Contact Center", es: "Centro de Servicios"),
+  itsupport:    (en: "IT Support", es: "Soporte IT"),
+  professionals:(en: "Professionals", es: "Profesionales"),
+  join:         (en: "Join Us", es: "Únete"),
+  contact:      (en: "Contact Us", es: "Contáctenos"),
+  chatbot:      (en: "Chatbot", es: "Chatbot"),
+  en:           (en: "EN", es: "EN"),
+  es:           (en: "ES", es: "ES"),
+  dark:         (en: "Dark", es: "Oscuro"),
+  light:        (en: "Light", es: "Claro"),
+  cancel:       (en: "Cancel", es: "Cancelar"),
+  send:         (en: "Send", es: "Enviar"),
+  submit:       (en: "Submit", es: "Enviar"),
+);
+
+// -------- FONT & RADIUS --------
+$ops-radius-cube: 1.3rem;
+$ops-radius-mob:  1.1rem;
+$ops-font-main:   system-ui, Arial, sans-serif;
+
+// -------- MIXIN: APPLY COLOR THEME --------
+@mixin theme($theme) {
+  $c: map-get($ops-colors, $theme);
+  background: map-get($c, bg);
+  color: map-get($c, text);
+}
+
+// -------- MIXIN: CARD CUBE GLASS --------
+@mixin cube-card($theme) {
+  $c: map-get($ops-colors, $theme);
+  padding: 2.5rem;
+  border-radius: $ops-radius-cube;
+  background: linear-gradient(120deg, map-get($c, bg) 92%, #e5e9f1 100%);
+  border: 1.5px solid map-get($c, border);
+  color: map-get($c, text);
+  box-shadow:
+    0 3px 12px 0 rgba(0,0,0,0.11),
+    0 3px 0 0 map-get($c, cube),
+    inset -1px 1px 5px #fff6,
+    0 0 0 1.5px map-get($c, glass);
+  transition:
+    box-shadow .18s cubic-bezier(.46,1.48,.48,.94),
+    transform .14s cubic-bezier(.46,1.48,.48,.94);
+  cursor: pointer;
+  user-select: none;
+}
+
