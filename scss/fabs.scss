@@ -1,0 +1,78 @@
+@import "variables";
+
+.fab-stack {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  z-index: 4000;
+}
+
+.fab-btn {
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $primary 0%, $accent 100%);
+  color: #fff;
+  border: none;
+  font-size: 1.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 12px $shadow-strong;
+  cursor: pointer;
+  outline: none;
+  transition: background .18s, box-shadow .18s;
+  &:hover { background: $accent2; }
+}
+
+.fab-accordion-toggle { background: $yellow; color: $footer-bg; }
+
+@media (max-width: 900px) {
+  .fab-stack { right: 6px; bottom: 7px; gap: 10px;}
+}
+
+.mobile-accordion-nav {
+  display: none;
+  @media (max-width: 900px) {
+    display: block;
+    position: fixed;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    width: 97vw;
+    margin: 0 auto;
+    z-index: 4999;
+    border-radius: 18px 18px 0 0;
+    background: linear-gradient(90deg, $card-glass, $card2 80%);
+    box-shadow: 0 3px 12px $shadow-strong;
+    padding: .8rem 1.1rem;
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      justify-content: center;
+      align-items: center;
+      padding: 0; margin: 0;
+      list-style: none;
+    }
+    li {
+      display: flex; align-items: center;
+      button, a {
+        background: none; border: none; font-size: 1.1rem;
+        color: $footer-bg;
+        font-weight: 600;
+        border-radius: 1.2rem;
+        padding: .5em .95em;
+        cursor: pointer;
+        transition: background .18s;
+        &:hover { background: $yellow; color: $accent2;}
+      }
+    }
+    .mobile-toggles {
+      display: flex; flex-direction: column; gap: .3em;
+      button { margin-bottom: .13em; }
+    }
+  }
+}
