@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>OPS Online Support</title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Font Awesome Pro CDN (swap for local if needed) -->
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+  <title>OPS Online Support</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/fabs.css">
+  <link rel="stylesheet" href="css/modal.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/chatbot.css">
+  <script type="module" src="js/main.js" defer></script>
 </head>
 <body>
-  <!-- MAIN NAVIGATION -->
+  <!-- NAVIGATION -->
   <nav class="main-nav">
-    <div class="logo" style="font-weight:bold;font-size:1.4rem;">OPS</div>
+    <div class="logo">
+      <img src="assets/logo-ops.svg" alt="OPS Logo" width="36" style="vertical-align:middle;margin-right:7px;">
+      <span class="logo-text">OPS</span>
+    </div>
     <ul>
-      <li><a href="services/business.html" data-en="Business Operations" data-es="Gestión">Business Operations</a></li>
-      <li><a href="services/contact-center.html" data-en="Contact Center" data-es="Centro De Servicios">Contact Center</a></li>
-      <li><a href="services/it-support.html" data-en="IT Support" data-es="Soporte IT">IT Support</a></li>
-      <li><a href="services/professionals.html" data-en="Professionals" data-es="Profesionales">Professionals</a></li>
+      <li><a href="business-operations.html" data-i18n="Business Operations">Business Operations</a></li>
+      <li><a href="contact-center.html" data-i18n="Contact Center">Contact Center</a></li>
+      <li><a href="it-support.html" data-i18n="IT Support">IT Support</a></li>
+      <li><a href="professionals.html" data-i18n="Professionals">Professionals</a></li>
     </ul>
     <div class="toggles">
       <button id="lang-toggle" data-state="en">EN</button>
@@ -24,62 +32,193 @@
     </div>
   </nav>
 
-  <!-- GRID OF SERVICE CARDS -->
+  <!-- SERVICE CARDS GRID -->
   <main>
     <div class="grid-container">
-      <div class="card service-card" data-service="business">
-        <div class="title" data-en="Business Operations" data-es="Gestión">Business Operations</div>
+      <!-- Card 1: Business Operations -->
+      <div class="card" data-modal="modal-business">
+        <div class="title" data-i18n="Business Operations">Business Operations</div>
         <div class="icon"><i class="fa-thin fa-briefcase"></i></div>
         <div class="content">
-          <p data-en="Streamline your business process..." data-es="Optimiza tus procesos de negocio...">Streamline your business process...</p>
-          <button class="learn-btn" data-en="Learn More" data-es="Aprender Más">Learn More</button>
+          <p>
+            Optimize, streamline, and drive growth—discover our strategic operations support.
+          </p>
+          <button class="learn-btn" data-i18n="Learn More">Learn More</button>
         </div>
       </div>
-      <div class="card service-card" data-service="contactc">
-        <div class="title" data-en="Contact Center" data-es="Centro De Servicios">Contact Center</div>
+      <!-- Card 2: Contact Center -->
+      <div class="card" data-modal="modal-contact">
+        <div class="title" data-i18n="Contact Center">Contact Center</div>
         <div class="icon"><i class="fa-thin fa-headset"></i></div>
         <div class="content">
-          <p data-en="Omnichannel customer support..." data-es="Soporte omnicanal al cliente...">Omnichannel customer support...</p>
-          <button class="learn-btn" data-en="Learn More" data-es="Aprender Más">Learn More</button>
+          <p>
+            Elevate customer satisfaction with our omni-channel contact solutions.
+          </p>
+          <button class="learn-btn" data-i18n="Learn More">Learn More</button>
         </div>
       </div>
-      <div class="card service-card" data-service="itsupport">
-        <div class="title" data-en="IT Support" data-es="Soporte IT">IT Support</div>
-        <div class="icon"><i class="fa-thin fa-wrench-simple"></i></div>
+      <!-- Card 3: IT Support -->
+      <div class="card" data-modal="modal-it">
+        <div class="title" data-i18n="IT Support">IT Support</div>
+        <div class="icon"><i class="fa-thin fa-display-code"></i></div>
         <div class="content">
-          <p data-en="Expert IT assistance, 24/7..." data-es="Asistencia IT experta, 24/7...">Expert IT assistance, 24/7...</p>
-          <button class="learn-btn" data-en="Learn More" data-es="Aprender Más">Learn More</button>
+          <p>
+            Secure, agile, and always on—enterprise-grade technical support for all.
+          </p>
+          <button class="learn-btn" data-i18n="Learn More">Learn More</button>
         </div>
       </div>
-      <div class="card service-card" data-service="professionals">
-        <div class="title" data-en="Professionals" data-es="Profesionales">Professionals</div>
+      <!-- Card 4: Professionals -->
+      <div class="card" data-modal="modal-pro">
+        <div class="title" data-i18n="Professionals">Professionals</div>
         <div class="icon"><i class="fa-thin fa-users"></i></div>
         <div class="content">
-          <p data-en="Access top-vetted talent..." data-es="Accede a talento de élite...">Access top-vetted talent...</p>
-          <button class="learn-btn" data-en="Learn More" data-es="Aprender Más">Learn More</button>
+          <p>
+            Access the right experts for every challenge—project or permanent.
+          </p>
+          <button class="learn-btn" data-i18n="Learn More">Learn More</button>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- FABs -->
-  <div class="fab-stack">
-    <button class="fab-btn" id="fab-join" title="Join Us"><i class="fas fa-user-plus"></i></button>
-    <button class="fab-btn" id="fab-contact" title="Contact Us"><i class="fas fa-envelope"></i></button>
-    <button class="fab-btn" id="fab-chat" title="Chatbot"><i class="fas fa-robot"></i></button>
+  <!-- FAB STACK (Desktop & Mobile) -->
+  <div class="fab-stack" id="fab-stack">
+    <button class="fab-btn" data-modal="modal-join" title="Join Us">
+      <i class="fa-thin fa-user-plus"></i>
+    </button>
+    <button class="fab-btn" data-modal="modal-contact" title="Contact Us">
+      <i class="fa-thin fa-envelope"></i>
+    </button>
+    <button class="fab-btn" data-modal="modal-chatbot" title="Chatbot">
+      <i class="fa-thin fa-robot"></i>
+    </button>
+    <button class="fab-btn fab-accordion-toggle" title="Menu" id="fab-accordion-toggle">
+      <i class="fa-thin fa-bars"></i>
+    </button>
   </div>
 
-  <!-- MODAL OVERLAY (Injected) -->
-  <div id="modal-overlay" class="modal-overlay" tabindex="-1" aria-hidden="true"></div>
+  <!-- MOBILE ACCORDION NAV (visible on adaptive screens) -->
+  <nav class="mobile-accordion-nav" id="mobile-accordion-nav" aria-hidden="true">
+    <ul>
+      <li><button data-modal="modal-business" class="mobile-nav-service"><i class="fa-thin fa-briefcase"></i> <span data-i18n="Business Operations">Business Operations</span></button></li>
+      <li><button data-modal="modal-contact" class="mobile-nav-service"><i class="fa-thin fa-headset"></i> <span data-i18n="Contact Center">Contact Center</span></button></li>
+      <li><button data-modal="modal-it" class="mobile-nav-service"><i class="fa-thin fa-display-code"></i> <span data-i18n="IT Support">IT Support</span></button></li>
+      <li><button data-modal="modal-pro" class="mobile-nav-service"><i class="fa-thin fa-users"></i> <span data-i18n="Professionals">Professionals</span></button></li>
+      <li><button data-modal="modal-chatbot"><i class="fa-thin fa-robot"></i> Chatbot</button></li>
+      <li>
+        <div class="mobile-toggles">
+          <button id="mobile-lang-toggle">EN</button>
+          <button id="mobile-theme-toggle">Dark</button>
+        </div>
+      </li>
+      <li><button data-modal="modal-contact"><i class="fa-thin fa-envelope"></i> Contact Us</button></li>
+      <li><button data-modal="modal-join"><i class="fa-thin fa-user-plus"></i> Join Us</button></li>
+      <li><a href="index.html"><i class="fa-thin fa-home"></i> Home</a></li>
+    </ul>
+  </nav>
+
+  <!-- SERVICE MODALS (Content injected dynamically, placeholders here) -->
+  <div id="modal-business" class="modal-overlay" tabindex="-1" data-service="business"></div>
+  <div id="modal-contact" class="modal-overlay" tabindex="-1" data-service="contact"></div>
+  <div id="modal-it" class="modal-overlay" tabindex="-1" data-service="it"></div>
+  <div id="modal-pro" class="modal-overlay" tabindex="-1" data-service="pro"></div>
+
+  <!-- JOIN US MODAL -->
+  <div id="modal-join" class="modal-overlay" tabindex="-1">
+    <div class="modal draggable" role="dialog" aria-modal="true">
+      <button class="close-btn" data-close>&times;</button>
+      <div class="modal-header" data-i18n="Join Us">Join Us</div>
+      <form id="join-form">
+        <div>
+          <label for="join-name" data-i18n="Name">Name</label>
+          <input id="join-name" type="text" required>
+        </div>
+        <div>
+          <label for="join-email" data-i18n="Email">Email</label>
+          <input id="join-email" type="email" required>
+        </div>
+        <div>
+          <label for="join-phone" data-i18n="Phone">Phone</label>
+          <input id="join-phone" type="tel" required>
+        </div>
+        <div>
+          <label for="join-about" data-i18n="Tell us about yourself">Tell us about yourself</label>
+          <textarea id="join-about" rows="3" required></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel-btn" data-close data-i18n="Cancel">Cancel</button>
+          <button type="submit" class="modal-submit-btn" data-i18n="Submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- CONTACT US MODAL -->
+  <div id="modal-contact" class="modal-overlay" tabindex="-1">
+    <div class="modal draggable" role="dialog" aria-modal="true">
+      <button class="close-btn" data-close>&times;</button>
+      <div class="modal-header" data-i18n="Contact Us">Contact Us</div>
+      <form id="contact-form">
+        <div>
+          <label for="contact-name" data-i18n="Name">Name</label>
+          <input id="contact-name" type="text" required>
+        </div>
+        <div>
+          <label for="contact-email" data-i18n="Email">Email</label>
+          <input id="contact-email" type="email" required>
+        </div>
+        <div>
+          <label for="contact-phone" data-i18n="Phone">Phone</label>
+          <input id="contact-phone" type="tel" required>
+        </div>
+        <div>
+          <label for="contact-message" data-i18n="Message">Message</label>
+          <textarea id="contact-message" rows="3" required></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel-btn" data-close data-i18n="Cancel">Cancel</button>
+          <button type="submit" class="modal-submit-btn" data-i18n="Send">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- CHATBOT MODAL -->
+  <div id="modal-chatbot" class="modal-overlay" tabindex="-1">
+    <div class="modal chatbot-modal draggable" role="dialog" aria-modal="true">
+      <button class="close-btn" data-close>&times;</button>
+      <div class="modal-header">
+        <span class="chatbot-title" data-i18n="OPS • Chattia">OPS • Chattia</span>
+        <div class="chatbot-toggles">
+          <button id="chatbot-lang-toggle">EN</button>
+          <button id="chatbot-theme-toggle">Dark</button>
+        </div>
+      </div>
+      <div class="modal-content chatbot-content">
+        <div class="chat-log" id="chat-log" aria-live="polite"></div>
+        <form id="chatbot-input-row" autocomplete="off">
+          <input id="chatbot-input" type="text" placeholder="Type your message..." required maxlength="256">
+          <button id="chatbot-send" type="submit" disabled aria-label="Send">
+            <i class="fa-thin fa-paper-plane"></i>
+          </button>
+        </form>
+        <label class="human-check">
+          <input type="checkbox" id="human-check">
+          <span data-i18n="I am human">I am human</span>
+        </label>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer>
     © 2025 OPS Online Support
+    &nbsp;|&nbsp;
+    <a href="terms.html" style="color: #ffef2f;text-decoration: underline;">Terms & Conditions</a>
   </footer>
 
-  <!-- JS -->
-  <script type="module" src="js/main.js"></script>
-  <!-- modal.js must be loaded as module before main.js -->
-  <script type="module" src="js/modal.js"></script>
+  <!-- FontAwesome CDN (if not local/vendor) -->
+  <script src="https://pro.fontawesome.com/releases/v6.0.0-beta1/js/all.js" crossorigin="anonymous" defer></script>
 </body>
 </html>
