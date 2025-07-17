@@ -216,3 +216,30 @@ footer {
   .main-nav { flex-direction: column; padding: .6rem 1vw; }
   .modal-dialog { padding: 1rem 0.6rem; min-width: 85vw; }
 }
+
+.form-block { display: flex; flex-direction: column; gap: 1rem; }
+.form-block input, .form-block textarea, .form-block select {
+  padding: 0.7em; border-radius: 7px; border: 1px solid #ccc;
+  background: #f7faff;
+  font-size: 1.02rem;
+}
+.form-actions {
+  display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.4rem;
+}
+.cancel-btn, .send-btn {
+  border: none; padding: 0.7em 1.5em; border-radius: 20px; font-weight: bold;
+  cursor: pointer;
+}
+.cancel-btn { background: #eee; color: #333; }
+.send-btn { background: var(--clr-accent); color: #fff; }
+.send-btn:active, .cancel-btn:active { filter: brightness(.96); }
+.chatbot-ui { display: flex; flex-direction: column; height: 100%; }
+.chatbot-log {
+  flex: 1; overflow-y: auto; background: #251541; color: #fff;
+  border-radius: 8px; margin-bottom: .7em; padding: .7em;
+}
+.chatbot-form { display: flex; gap: .8em; align-items: center; }
+#chatbot-input { flex: 1; border: none; background: #321b53; color: #fff; }
+#chatbot-send { background: var(--clr-primary); color: #fff; border: none; border-radius: 8px; font-size: 1.3em; }
+.human-check { font-size: 0.93em; color: #eee; margin-left: .8em; }
+
