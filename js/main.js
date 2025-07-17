@@ -1,29 +1,29 @@
 // js/main.js
+import { showModal, closeModal } from './modal.js';
 
+// Wait for DOM to fully load
 document.addEventListener('DOMContentLoaded', function () {
-  // === GLOBALS ===
+  // =========== GLOBALS ===========
   const langToggle = document.getElementById('lang-toggle');
   const themeToggle = document.getElementById('theme-toggle');
   let currentLang = 'en';
   let currentTheme = 'light';
 
-  // --- Language Switch ---
+  // =========== LANGUAGE TOGGLE ===========
   function updateLang(lang) {
     currentLang = lang;
     document.documentElement.lang = lang;
-    document.querySelectorAll('[data-en]').forEach(el => {
-      el.textContent = el.getAttribute('data-' + lang);
-    });
-    document.querySelectorAll('[data-en-ph]').forEach(el => {
-      el.placeholder = el.getAttribute('data-' + lang + '-ph');
-    });
-    document.querySelectorAll('[data-es], [data-en]').forEach(el => {
-      // For options/labels/buttons not caught by the main selector
+    // All text nodes and buttons
+    document.querySelectorAll('[data-en], [data-es]').forEach(el => {
       if (el.hasAttribute('data-' + lang)) {
         el.textContent = el.getAttribute('data-' + lang);
       }
     });
-    // Tell other JS modules
+    // All placeholders (inputs/textareas)
+    document.querySelectorAll('[data-en-ph], [data-es-ph]').forEach(el => {
+      el.placeholder = el.getAttribute(`data-${lang}-ph`) || el.placeholder;
+    });
+    // Broadcast for connector.js/others
     document.dispatchEvent(new CustomEvent('langChange', { detail: { lang } }));
   }
   langToggle.addEventListener('click', function () {
@@ -31,100 +31,95 @@ document.addEventListener('DOMContentLoaded', function () {
     langToggle.textContent = currentLang.toUpperCase();
   });
 
-  // --- Theme Switch ---
+  // =========== THEME TOGGLE ===========
   function updateTheme(theme) {
     currentTheme = theme;
     document.body.classList.toggle('dark', theme === 'dark');
     themeToggle.textContent = theme === 'dark' ? 'Light' : 'Dark';
-    // Tell other JS modules
+    // Broadcast for connector.js/others
     document.dispatchEvent(new CustomEvent('themeChange', { detail: { theme } }));
   }
   themeToggle.addEventListener('click', function () {
     updateTheme(currentTheme === 'light' ? 'dark' : 'light');
   });
 
-  // === SERVICE CARD MODALS ===
-  // Card click → modal with content preview, call-to-action
+  // =========== SERVICE CARD PREVIEW MODALS ===========
+  // For each card: show preview modal, learn more, drag
   document.querySelectorAll('.service-card').forEach(card => {
     card.addEventListener('click', function (e) {
-      if (e.target.classList.contains('learn-btn')) return; // handled below
-      showServiceModal(card.dataset.service);
+      // Don't trigger modal if user clicks "Learn More"
+      if (e.target.classList.contains('learn-btn')) return;
+
+      const service = card.dataset.service;
+      const preview = {
+        business: {
+          title: { en: "Business Operations", es: "Gestión" },
+          desc: {
+            en: "Preview of our Business Operations solutions.",
+            es: "Vista previa de nuestras soluciones de Gestión."
+          }
+        },
+        contactc: {
+          title: { en: "Contact Center", es: "Centro de Servicios" },
+          desc: {
+            en: "Preview of our Contact Center offerings.",
+            es: "Vista previa de nuestros servicios de Contact Center."
+          }
+        },
+        itsupport: {
+          title: { en: "IT Support", es: "Soporte IT" },
+          desc: {
+            en: "Preview of our IT Support expertise.",
+            es: "Vista previa de nuestro soporte IT."
+          }
+        },
+        professionals: {
+          title: { en: "Professionals", es: "Profesionales" },
+          desc: {
+            en: "Preview of our network of professionals.",
+            es: "Vista previa de nuestra red de profesionales."
+          }
+        }
+      };
+      const s = preview[service];
+      if (!s) return;
+
+      // Show modal using modal.js
+      showModal({
+        title: s.title[currentLang],
+        body: `<p>${s.desc[currentLang]}</p>
+               <img src="assets/${service}.jpg" alt="${s.title[currentLang]}" style="width:100%;max-width:350px;border-radius:10px;margin:1rem 0;">
+               <video controls style="width:100%;max-width:350px;display:block;">
+                 <source src="assets/${service}.mp4" type="video/mp4">
+                 Your browser does not support the video tag.
+               </video>`,
+        footer: `<button class="learn-btn" data-service="${service}" style="margin-right:10px;">${currentLang === 'en' ? "Learn More" : "Aprender Más"}</button>
+                 <button class="close-btn" style="background:#bbb;">${currentLang === 'en' ? "Close" : "Cerrar"}</button>`,
+        draggable: true,
+        width: "420px",
+        className: "service-modal"
+      });
+
+      // Add button events INSIDE modal
+      const modal = document.querySelector('.modal.service-modal');
+      modal.querySelector('.learn-btn').onclick = function () {
+        const pageMap = {
+          business: "services/business.html",
+          contactc: "services/contact-center.html",
+          itsupport: "services/it-support.html",
+          professionals: "services/professionals.html"
+        };
+        window.location.href = pageMap[service];
+      };
+      modal.querySelector('.close-btn').onclick = function () {
+        closeModal();
+      };
     });
-    // Learn More button: go to full service page
+
+    // Card "Learn More" direct nav
     card.querySelector('.learn-btn').addEventListener('click', function (e) {
       e.stopPropagation();
-      // Map service to page
-      const pageMap = {
-        business: "services/business.html",
-        contactc: "services/contact-center.html",
-        itsupport: "services/it-support.html",
-        professionals: "services/professionals.html"
-      };
-      window.location.href = pageMap[card.dataset.service];
-    });
-  });
-
-  // === MODALS ===
-  const modalOverlay = document.getElementById('modal-overlay');
-
-  function showServiceModal(service) {
-    // Remove any existing modal
-    closeModal();
-
-    // Dynamic content for each service preview modal
-    const serviceContent = {
-      business: {
-        title: { en: "Business Operations", es: "Gestión" },
-        desc: {
-          en: "Preview of our Business Operations solutions.",
-          es: "Vista previa de nuestras soluciones de Gestión."
-        }
-      },
-      contactc: {
-        title: { en: "Contact Center", es: "Centro de Servicios" },
-        desc: {
-          en: "Preview of our Contact Center offerings.",
-          es: "Vista previa de nuestros servicios de Contact Center."
-        }
-      },
-      itsupport: {
-        title: { en: "IT Support", es: "Soporte IT" },
-        desc: {
-          en: "Preview of our IT Support expertise.",
-          es: "Vista previa de nuestro soporte IT."
-        }
-      },
-      professionals: {
-        title: { en: "Professionals", es: "Profesionales" },
-        desc: {
-          en: "Preview of our network of professionals.",
-          es: "Vista previa de nuestra red de profesionales."
-        }
-      }
-    };
-
-    const s = serviceContent[service];
-    if (!s) return;
-
-    // Modal content structure
-    const modalHTML = `
-      <div class="modal service-modal" role="dialog" aria-modal="true" draggable="true">
-        <button class="modal-close" aria-label="Close">&times;</button>
-        <div class="modal-header">${s.title[currentLang]}</div>
-        <div class="modal-content">${s.desc[currentLang]}</div>
-        <div class="modal-footer">
-          <button class="modal-learn learn-btn" data-service="${service}">
-            ${currentLang === 'en' ? "Learn More" : "Aprender Más"}
-          </button>
-        </div>
-      </div>
-    `;
-    modalOverlay.innerHTML = modalHTML;
-    modalOverlay.setAttribute('aria-hidden', 'false');
-    modalOverlay.style.display = "flex";
-
-    // Learn More inside modal
-    modalOverlay.querySelector('.modal-learn').onclick = function () {
+      const service = card.dataset.service;
       const pageMap = {
         business: "services/business.html",
         contactc: "services/contact-center.html",
@@ -132,68 +127,52 @@ document.addEventListener('DOMContentLoaded', function () {
         professionals: "services/professionals.html"
       };
       window.location.href = pageMap[service];
-    };
-
-    // Close modal handlers
-    modalOverlay.querySelector('.modal-close').onclick = closeModal;
-    modalOverlay.onclick = function (e) {
-      if (e.target === modalOverlay) closeModal();
-    };
-    document.onkeydown = function (e) {
-      if (e.key === 'Escape') closeModal();
-    };
-
-    // Draggable modal (simple)
-    makeDraggable(modalOverlay.querySelector('.modal'));
-  }
-
-  function closeModal() {
-    modalOverlay.innerHTML = "";
-    modalOverlay.style.display = "none";
-    modalOverlay.setAttribute('aria-hidden', 'true');
-    document.onkeydown = null;
-  }
-
-  // === DRAGGABLE MODALS ===
-  function makeDraggable(modal) {
-    let isDragging = false, offsetX = 0, offsetY = 0;
-    modal.addEventListener('mousedown', function (e) {
-      if (e.target.classList.contains('modal-close')) return;
-      isDragging = true;
-      offsetX = e.clientX - modal.getBoundingClientRect().left;
-      offsetY = e.clientY - modal.getBoundingClientRect().top;
-      modal.style.transition = 'none';
-      modal.style.cursor = 'move';
     });
-    document.addEventListener('mousemove', function (e) {
-      if (!isDragging) return;
-      modal.style.position = "fixed";
-      modal.style.left = (e.clientX - offsetX) + "px";
-      modal.style.top = (e.clientY - offsetY) + "px";
-      modal.style.margin = 0;
+  });
+
+  // =========== FAB/Join/Contact/Chatbot Modals (BROADCAST HANDLERS) ===========
+  document.addEventListener('openJoin', () => {
+    // Example: show join modal (replace with full join form as needed)
+    showModal({
+      title: currentLang === 'en' ? "Join Us" : "Únete",
+      body: `<p>${currentLang === 'en' ? "Join our team via this form!" : "¡Únete a nuestro equipo con este formulario!"}</p>`,
+      footer: `<button class="close-btn">${currentLang === 'en' ? "Close" : "Cerrar"}</button>`,
+      draggable: true,
+      width: "440px",
+      className: "join-modal"
     });
-    document.addEventListener('mouseup', function () {
-      isDragging = false;
-      modal.style.transition = '';
-      modal.style.cursor = '';
+    document.querySelector('.modal.join-modal .close-btn').onclick = closeModal;
+  });
+
+  document.addEventListener('openContact', () => {
+    // Example: show contact modal (replace with full contact form as needed)
+    showModal({
+      title: currentLang === 'en' ? "Contact Us" : "Contáctenos",
+      body: `<p>${currentLang === 'en' ? "Contact us for any inquiry!" : "¡Contáctenos para cualquier consulta!"}</p>`,
+      footer: `<button class="close-btn">${currentLang === 'en' ? "Close" : "Cerrar"}</button>`,
+      draggable: true,
+      width: "440px",
+      className: "contact-modal"
     });
-  }
+    document.querySelector('.modal.contact-modal .close-btn').onclick = closeModal;
+  });
 
-  // === FABs, JOIN, CONTACT, CHATBOT modals ===
-  // They’re rendered by fabmain.js (mobile/adaptable screens) and listened by connector.js, central.js
-  // This file dispatches or listens to those events for global logic
+  document.addEventListener('openChat', () => {
+    // Example: show chatbot modal (replace with actual chat logic as needed)
+    showModal({
+      title: currentLang === 'en' ? "OPS Chatbot" : "Chatbot OPS",
+      body: `<div style="height:340px;display:flex;align-items:center;justify-content:center;color:#888;">
+               ${currentLang === 'en' ? "Chatbot UI here" : "Chatbot aquí"}
+             </div>`,
+      footer: `<button class="close-btn">${currentLang === 'en' ? "Close" : "Cerrar"}</button>`,
+      draggable: true,
+      width: "420px",
+      className: "chatbot-modal"
+    });
+    document.querySelector('.modal.chatbot-modal .close-btn').onclick = closeModal;
+  });
 
-  // Listen to FAB triggers (broadcasted from fabmain.js, e.g. 'openJoin', 'openContact', 'openChat')
-  document.addEventListener('openJoin', () => showJoinModal());
-  document.addEventListener('openContact', () => showContactModal());
-  document.addEventListener('openChat', () => showChatbotModal());
-
-  // Placeholder stubs (your join/contact/chat logic goes here)
-  function showJoinModal() {/* ... */}
-  function showContactModal() {/* ... */}
-  function showChatbotModal() {/* ... */}
-
-  // === INITIALIZE (default EN, light) ===
+  // =========== INIT DEFAULTS ===========
   updateLang('en');
   updateTheme('light');
 });
