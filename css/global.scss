@@ -37,6 +37,37 @@ $radius-mob:  1.1rem;
   user-select: none;
 }
 
+@import 'ops-vars';
+
+// LIGHT THEME (default)
+body {
+  @include theme(light);
+  font-family: $ops-font-main;
+  min-height: 100vh;
+  transition: background .3s, color .3s;
+}
+
+body.dark {
+  @include theme(dark);
+}
+
+// CARD COMPONENT
+.card {
+  @include cube-card(light);  // swap with "dark" for dark mode, or do it via body class in output CSS
+  .icon > i {
+    background: linear-gradient(90deg, map-get(map-get($ops-colors, light), accent), map-get(map-get($ops-colors, light), accent2));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+}
+body.dark .card {
+  @include cube-card(dark);
+  .icon > i {
+    background: linear-gradient(90deg, map-get(map-get($ops-colors, dark), accent), map-get(map-get($ops-colors, dark), accent2));
+  }
+}
+
 // --- Reset ---
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
