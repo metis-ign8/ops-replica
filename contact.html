@@ -1,26 +1,87 @@
-<form id="contact-us-form" autocomplete="off" class="form-block">
-  <label>Name</label>
-  <input name="name" required placeholder="Enter your name">
-  <label>Email</label>
-  <input name="email" type="email" required placeholder="Enter your email">
-  <label>Contact Number</label>
-  <input name="number" type="tel" required placeholder="Enter your contact number">
-  <label>Preferred Date</label>
-  <input name="date" type="date" required>
-  <label>Preferred Time</label>
-  <input name="time" type="time" required>
-  <label>What are you interested about?</label>
-  <select name="interest" required>
-    <option value="">Select an option</option>
-    <option>Business Operations</option>
-    <option>Contact Center</option>
-    <option>IT Support</option>
-    <option>Professionals</option>
-  </select>
-  <label>Comments</label>
-  <textarea name="comments" rows="3" placeholder="Describe your needs..."></textarea>
-  <div class="form-actions">
-    <button type="button" class="cancel-btn">Cancel</button>
-    <button type="submit" class="send-btn">Send</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us • OPS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/ops-favicon.ico">
+  <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+  <!-- Main Navigation -->
+  <nav class="main-nav">
+    <div class="logo">OPS</div>
+    <ul>
+      <li><a href="business-operations.html" data-i18n="Business Operations">Business Operations</a></li>
+      <li><a href="contact-center.html" data-i18n="Contact Center">Contact Center</a></li>
+      <li><a href="it-support.html" data-i18n="IT Support">IT Support</a></li>
+      <li><a href="professionals.html" data-i18n="Professionals">Professionals</a></li>
+    </ul>
+    <div class="toggles">
+      <button id="lang-toggle">EN</button>
+      <button id="theme-toggle">Dark</button>
+    </div>
+  </nav>
+
+  <!-- Contact Us Modal (Always visible as primary on this page) -->
+  <div class="modal-overlay active" id="modal-contact" tabindex="-1" aria-modal="true" aria-labelledby="contact-header">
+    <div class="modal" role="dialog">
+      <button class="close-btn" data-close aria-label="Close">&times;</button>
+      <div class="modal-header" id="contact-header" data-i18n="Contact Us">Contact Us</div>
+      <form id="contact-form" autocomplete="off">
+        <div class="form-row">
+          <label for="contact-name" data-i18n="Name">Name</label>
+          <input type="text" id="contact-name" name="name" required data-en="Enter your name" data-es="Ingresa tu nombre" placeholder="Enter your name">
+        </div>
+        <div class="form-row">
+          <label for="contact-email" data-i18n="Email">Email</label>
+          <input type="email" id="contact-email" name="email" required data-en="Enter your email" data-es="Ingresa tu correo" placeholder="Enter your email">
+        </div>
+        <div class="form-row">
+          <label for="contact-number" data-i18n="Contact Number">Contact Number</label>
+          <input type="tel" id="contact-number" name="number" required data-en="Enter your contact number" data-es="Ingresa tu número" placeholder="Enter your contact number">
+        </div>
+        <div class="form-row">
+          <label for="contact-date" data-i18n="Preferred Date">Preferred Date</label>
+          <input type="date" id="contact-date" name="date" required>
+        </div>
+        <div class="form-row">
+          <label for="contact-time" data-i18n="Preferred Time">Preferred Time</label>
+          <input type="time" id="contact-time" name="time" required>
+        </div>
+        <div class="form-row">
+          <label for="contact-interest" data-i18n="What are you interested about?">What are you interested about?</label>
+          <select id="contact-interest" name="interest" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="business" data-i18n="Business Operations">Business Operations</option>
+            <option value="contact" data-i18n="Contact Center">Contact Center</option>
+            <option value="it" data-i18n="IT Support">IT Support</option>
+            <option value="pro" data-i18n="Professionals">Professionals</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="contact-comments" data-i18n="Comments">Comments</label>
+          <textarea id="contact-comments" name="comments" rows="4" data-en="What service are you interested in?" data-es="¿En qué servicio está interesado?" placeholder="What service are you interested in?"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-cancel-btn" data-close data-i18n="Cancel">Cancel</button>
+          <button type="submit" class="modal-submit-btn" data-i18n="Send">Send</button>
+        </div>
+      </form>
+    </div>
   </div>
-</form>
+
+  <!-- FABs (imported globally) -->
+  <div class="fab-stack">
+    <button class="fab-btn" data-modal="modal-join" title="Join Us"><i class="fa-solid fa-user-plus"></i></button>
+    <button class="fab-btn" data-modal="modal-contact" title="Contact"><i class="fa-solid fa-envelope"></i></button>
+    <button class="fab-btn" data-modal="modal-chatbot" title="Chatbot"><i class="fa-solid fa-robot"></i></button>
+  </div>
+
+  <!-- Footer -->
+  <footer>© 2025 OPS Online Support</footer>
+
+  <!-- Main JS (module) -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
