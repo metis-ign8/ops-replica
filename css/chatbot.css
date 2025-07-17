@@ -1,0 +1,98 @@
+#chatbot-modal .modal-dialog {
+  width: 375px;
+  max-width: 92vw;
+  min-width: 250px;
+  padding: 0;
+  border-radius: 21px;
+  background: #251541;
+  color: #eee;
+  box-shadow: 0 12px 36px #0006;
+  overflow: hidden;
+  min-height: 420px;
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#chatbot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-accent));
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.08rem;
+  padding: .77rem 1.1rem;
+}
+
+#chatbot-header .ctrl {
+  cursor: pointer;
+  font-size: .93rem;
+  font-weight: 500;
+  opacity: .9;
+  user-select: none;
+  transition: opacity .13s;
+}
+#chatbot-header .ctrl:hover { opacity: 1; }
+
+#chat-log {
+  flex: 1;
+  overflow-y: auto;
+  background: #1b0e2d;
+  color: #eee;
+  font-size: .97rem;
+  padding: 1.1rem 1.05rem;
+}
+
+.chat-msg { margin: .48rem 0; max-width: 92%; }
+.user { margin-left: auto; background: var(--clr-primary); color: #000; padding: .5rem .8rem; border-radius: 15px 15px 0 15px; }
+.bot  { margin-right: auto; background: #321b53; color: #fff; padding: .5rem .8rem; border-radius: 15px 15px 15px 0; }
+
+#chatbot-form-container {
+  background: #220f3a;
+  border-top: 1px solid var(--clr-accent);
+  padding: .58rem .8rem;
+}
+
+#chatbot-input-row {
+  display: flex;
+  gap: .7rem;
+}
+
+#chatbot-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: .98rem;
+  padding: .62rem .68rem;
+}
+#chatbot-send {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--clr-accent);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: .49rem .92rem;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background .16s;
+}
+#chatbot-send i { transition: transform .22s; }
+#chatbot-send:hover i { transform: rotate(-40deg); }
+#chatbot-send:disabled { background: #444; cursor: not-allowed; }
+
+.human-check {
+  color: #ddd;
+  font-size: .87rem;
+  display: flex;
+  align-items: center;
+  margin-top: .28rem;
+}
+.human-check input { margin-right: .41rem; }
+
+@media (max-width: 480px) {
+  #chatbot-modal .modal-dialog { width: 97vw; min-width: 98vw; max-width: 99vw; height: 78vh; max-height: 90vh; }
+}
